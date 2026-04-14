@@ -19,7 +19,6 @@
         cursor: none;
       }
 
-      /* Custom cursor */
       .cursor {
         width: 22px;
         height: 22px;
@@ -32,7 +31,6 @@
         mix-blend-mode: difference;
       }
 
-      /* Canvases */
       #bg-canvas,
       #fireworks-canvas {
         position: fixed;
@@ -49,7 +47,6 @@
         pointer-events: none;
       }
 
-      /* Gradient overlay that shifts hue */
       .gradient-overlay {
         position: fixed;
         inset: 0;
@@ -73,7 +70,6 @@
         }
       }
 
-      /* Falling emojis */
       .emoji-container {
         position: fixed;
         inset: 0;
@@ -100,7 +96,6 @@
         }
       }
 
-      /* Balloons */
       .balloons-container {
         position: fixed;
         bottom: -120px;
@@ -140,7 +135,6 @@
         }
       }
 
-      /* Main container */
       .main-container {
         position: relative;
         z-index: 10;
@@ -151,7 +145,7 @@
         padding: 20px 15px;
       }
 
-      /* Header */
+      /* ---- HEADER ---- */
       .header {
         text-align: center;
         padding: 40px 20px 10px;
@@ -216,7 +210,7 @@
         }
       }
 
-      /* Cake */
+      /* ---- CAKE ---- */
       .cake-section {
         text-align: center;
         margin: 20px auto;
@@ -249,7 +243,7 @@
         animation: pulse 2s ease infinite;
       }
 
-      /* Message section */
+      /* ---- MESSAGE ---- */
       .message-section {
         max-width: 820px;
         width: 100%;
@@ -331,9 +325,9 @@
         }
       }
 
-      /* Photos section */
+      /* ---- PHOTOS ---- */
       .photos-section {
-        max-width: 950px;
+        max-width: 980px;
         width: 100%;
         margin: 25px auto;
       }
@@ -347,21 +341,36 @@
       }
       .photos-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        grid-template-columns: repeat(3, 1fr);
         gap: 22px;
       }
+
+      /* individual photo card */
       .photo-card {
         position: relative;
         border-radius: 22px;
         overflow: hidden;
-        aspect-ratio: 1 / 1;
         cursor: pointer;
         transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
           box-shadow 0.35s ease;
         box-shadow: 0 0 30px rgba(255, 107, 107, 0.4);
+        background: #111;
       }
+      /* Photo 1 — wedding hug (portrait) */
+      .photo-card:nth-child(1) {
+        aspect-ratio: 3 / 4;
+      }
+      /* Photo 2 — graduation (portrait, slightly taller) */
+      .photo-card:nth-child(2) {
+        aspect-ratio: 3 / 4;
+      }
+      /* Photo 3 — Holi (portrait) */
+      .photo-card:nth-child(3) {
+        aspect-ratio: 3 / 4;
+      }
+
       .photo-card:hover {
-        transform: scale(1.07) rotate(2deg);
+        transform: scale(1.07) rotate(1.5deg);
         box-shadow: 0 0 70px rgba(255, 217, 61, 0.7);
         z-index: 50;
       }
@@ -369,36 +378,51 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
+        object-position: center top;
         transition: transform 0.5s ease;
         display: block;
       }
       .photo-card:hover img {
-        transform: scale(1.12);
+        transform: scale(1.1);
       }
-      .photo-overlay {
+
+      /* badge label at bottom */
+      .photo-label {
         position: absolute;
-        inset: 0;
-        background: linear-gradient(
-          to top,
-          rgba(0, 0, 0, 0.75) 0%,
-          transparent 60%
-        );
-        display: flex;
-        align-items: flex-end;
-        padding: 16px;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 10px 14px 14px;
+        background: linear-gradient(to top, rgba(0,0,0,0.85), transparent);
+        color: #fff;
+        font-size: 0.88rem;
+        font-weight: bold;
+        text-align: center;
         opacity: 0;
         transition: opacity 0.35s ease;
       }
-      .photo-card:hover .photo-overlay {
+      .photo-card:hover .photo-label {
         opacity: 1;
       }
-      .photo-caption {
-        color: white;
-        font-size: 1rem;
+
+      /* top ribbon badge */
+      .photo-badge {
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        background: linear-gradient(135deg, #ff6b6b, #ffd93d);
+        color: #000;
+        font-size: 0.75rem;
         font-weight: bold;
-        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+        padding: 5px 12px;
+        border-radius: 20px;
+        z-index: 10;
+        box-shadow: 0 3px 12px rgba(0,0,0,0.4);
+        animation: pulse 2s ease infinite;
+        white-space: nowrap;
       }
-      /* Animated rainbow border on cards */
+
+      /* rainbow animated border */
       .photo-card::after {
         content: "";
         position: absolute;
@@ -414,14 +438,23 @@
         animation: textColorShift 3s ease infinite;
         pointer-events: none;
         z-index: 5;
-        opacity: 0.6;
+        opacity: 0.55;
         transition: opacity 0.35s;
       }
       .photo-card:hover::after {
         opacity: 1;
       }
 
-      /* Interactive buttons */
+      /* "tap to enlarge" hint */
+      .photo-hint {
+        text-align: center;
+        margin-top: 14px;
+        color: rgba(255, 255, 255, 0.55);
+        font-size: 0.88rem;
+        animation: pulse 2.5s ease infinite;
+      }
+
+      /* ---- INTERACTIVE BUTTONS ---- */
       .interactive-section {
         max-width: 720px;
         width: 100%;
@@ -484,25 +517,28 @@
         background: linear-gradient(135deg, #ffd93d, #6bcb77);
       }
 
-      /* Lightbox */
+      /* ---- LIGHTBOX ---- */
       .lightbox {
         display: none;
         position: fixed;
         inset: 0;
-        background: rgba(0, 0, 0, 0.92);
+        background: rgba(0, 0, 0, 0.94);
         z-index: 50000;
         justify-content: center;
         align-items: center;
+        flex-direction: column;
+        gap: 16px;
       }
       .lightbox.show {
         display: flex;
       }
       .lightbox img {
-        max-width: 90vw;
-        max-height: 88vh;
-        border-radius: 18px;
+        max-width: 88vw;
+        max-height: 82vh;
+        border-radius: 20px;
         animation: zoomIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
         box-shadow: 0 0 80px rgba(255, 217, 61, 0.5);
+        object-fit: contain;
       }
       @keyframes zoomIn {
         from {
@@ -513,6 +549,15 @@
           transform: scale(1) rotate(0deg);
           opacity: 1;
         }
+      }
+      .lightbox-caption {
+        color: #ffd93d;
+        font-size: 1.1rem;
+        font-weight: bold;
+        text-shadow: 0 0 15px rgba(255, 217, 61, 0.8);
+        text-align: center;
+        padding: 0 20px;
+        animation: pulse 2s ease infinite;
       }
       .lightbox-close {
         position: absolute;
@@ -529,7 +574,7 @@
         transform: scale(1.3) rotate(90deg);
       }
 
-      /* Popup */
+      /* ---- POPUP ---- */
       .popup {
         display: none;
         position: fixed;
@@ -588,7 +633,7 @@
         transform: scale(1.1);
       }
 
-      /* Music button */
+      /* ---- MUSIC ---- */
       .music-player {
         position: fixed;
         bottom: 22px;
@@ -636,7 +681,6 @@
         border-radius: 8px;
       }
 
-      /* Music notes */
       .music-note {
         position: fixed;
         pointer-events: none;
@@ -655,7 +699,7 @@
         }
       }
 
-      /* Sparkle trail */
+      /* ---- SPARKLE TRAIL ---- */
       .sparkle {
         position: fixed;
         pointer-events: none;
@@ -677,7 +721,6 @@
         }
       }
 
-      /* Confetti piece */
       @keyframes confettiFall {
         0% {
           transform: translateY(0) rotate(0deg);
@@ -689,7 +732,6 @@
         }
       }
 
-      /* Stars */
       .star {
         position: fixed;
         background: white;
@@ -710,7 +752,6 @@
         }
       }
 
-      /* Reveal animation */
       .reveal {
         opacity: 0;
         transform: translateY(55px);
@@ -721,7 +762,6 @@
         transform: translateY(0);
       }
 
-      /* YouTube iframe hidden */
       .yt-player {
         position: fixed;
         top: -9999px;
@@ -731,7 +771,6 @@
         opacity: 0;
       }
 
-      /* Footer */
       footer {
         text-align: center;
         padding: 30px 20px 40px;
@@ -744,12 +783,14 @@
         animation: pulse 1.2s ease infinite;
       }
 
-      @media (max-width: 600px) {
+      @media (max-width: 700px) {
         .message-section {
           padding: 25px 18px;
         }
         .photos-grid {
           grid-template-columns: 1fr;
+          max-width: 380px;
+          margin: 0 auto;
         }
         .wish-btn {
           padding: 12px 20px;
@@ -777,6 +818,7 @@
     <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
       <span class="lightbox-close" onclick="closeLightbox()">✕</span>
       <img id="lightbox-img" src="" alt="Memory" />
+      <div class="lightbox-caption" id="lightbox-caption"></div>
     </div>
 
     <!-- Popup -->
@@ -805,6 +847,7 @@
 
     <!-- ===================== MAIN CONTENT ===================== -->
     <div class="main-container">
+
       <!-- Header -->
       <header class="header">
         <div class="birthday-title">🎂 Happy Birthday! 🎂</div>
@@ -830,9 +873,9 @@
           <p>
             You are the
             <span class="highlight">strongest person</span> I have ever known.
-            Not just in body, but in your heart. You have always been there — on
-            the good days and the hard days — without fail, without complaint.
-            That is something truly special.
+            Not just in body, but in your heart. You have always been there —
+            on the good days and the hard days — without fail, without
+            complaint. That is something truly special.
           </p>
           <p>
             I have watched you work so hard, day after day, not for yourself,
@@ -848,6 +891,20 @@
             <span class="heart">🥰</span>
           </p>
           <p>
+            Do you remember my graduation day? Standing there with you beside
+            me, holding that degree — that was one of the proudest moments of
+            my life. But what made it truly special was
+            <span class="highlight">your smile.</span> That smile told me
+            everything. It told me that you believed in me, always.
+          </p>
+          <p>
+            Whether it is celebrating at a wedding, dancing together at Holi,
+            or just being together — every memory with you is
+            <span class="highlight">a treasure I will keep forever.</span>
+            You make every moment more joyful just by being in it.
+            <span class="heart">💛</span>
+          </p>
+          <p>
             Your laugh is one of my favourite sounds in the whole world. Your
             presence makes everything feel
             <span class="highlight">safer and warmer.</span> When you are
@@ -856,13 +913,13 @@
           <p>
             On this beautiful day, I wish you all the happiness you deserve —
             which is a lot, because you deserve the
-            <span class="highlight">whole world.</span> I wish you good health,
-            peaceful days, and a heart full of joy.
+            <span class="highlight">whole world.</span> I wish you good
+            health, peaceful days, and a heart full of joy.
           </p>
           <p>
-            <span class="highlight">Thank you, Papa.</span> Thank you for being
-            you. Thank you for being my father. I love you more than words can
-            ever say, and I hope you feel that love today especially.
+            <span class="highlight">Thank you, Papa.</span> Thank you for
+            being you. Thank you for being my father. I love you more than
+            words can ever say, and I hope you feel that love today especially.
             <span class="heart">💖</span>
           </p>
           <p style="font-size: 1.35rem; margin-top: 10px">
@@ -878,68 +935,97 @@
 
       <!-- Photos -->
       <section class="photos-section reveal">
-        <div class="section-title">📸 Our Beautiful Memories ✨</div>
+        <div class="section-title">📸 Our Most Beautiful Memories Together ✨</div>
         <div class="photos-grid">
+
+          <!-- Photo 1: Wedding hug -->
           <div
             class="photo-card"
-            onclick="openLightbox('https://drive.google.com/uc?id=1RVBtSaeGUydPjOKnAtEu3OyEqSPEPEpl&export=view')"
+            onclick="openLightbox(
+              'https://drive.google.com/thumbnail?id=1RVBtSaeGUydPjOKnAtEu3OyEqSPEPEpl&sz=w1200',
+              '🤗 A hug that says it all — Papa & me at the wedding!'
+            )"
           >
+            <span class="photo-badge">💙 Father & Son</span>
             <img
-              src="https://drive.google.com/uc?id=1RVBtSaeGUydPjOKnAtEu3OyEqSPEPEpl&export=view"
-              alt="Memory 1"
+              src="https://drive.google.com/thumbnail?id=1RVBtSaeGUydPjOKnAtEu3OyEqSPEPEpl&sz=w1200"
+              alt="Father and son hugging at a wedding"
               loading="lazy"
             />
-            <div class="photo-overlay">
-              <span class="photo-caption">💖 Precious Moments</span>
+            <div class="photo-label">
+              💙 Together at the wedding — my favourite hug ever!
             </div>
           </div>
+
+          <!-- Photo 2: Graduation -->
           <div
             class="photo-card"
-            onclick="openLightbox('https://drive.google.com/uc?id=1HfneXpRyrtTpVOqQ-PTC8tEanFgRNjG2&export=view')"
+            onclick="openLightbox(
+              'https://drive.google.com/thumbnail?id=1HfneXpRyrtTpVOqQ-PTC8tEanFgRNjG2&sz=w1200',
+              '🎓 Graduation Day — the proudest moment of my life, because YOU were there!'
+            )"
           >
+            <span class="photo-badge">🎓 Graduation Day!</span>
             <img
-              src="https://drive.google.com/uc?id=1HfneXpRyrtTpVOqQ-PTC8tEanFgRNjG2&export=view"
-              alt="Memory 2"
+              src="https://drive.google.com/thumbnail?id=1HfneXpRyrtTpVOqQ-PTC8tEanFgRNjG2&sz=w1200"
+              alt="Graduation day with parents"
               loading="lazy"
             />
-            <div class="photo-overlay">
-              <span class="photo-caption">🌟 Amazing Times Together</span>
+            <div class="photo-label">
+              🎓 My proudest moment — possible only because of you both!
             </div>
           </div>
+
+          <!-- Photo 3: Holi -->
           <div
             class="photo-card"
-            onclick="openLightbox('https://drive.google.com/uc?id=1BA6mllwIf0Krydo9lB-tEv-GfCy_kpUx&export=view')"
+            onclick="openLightbox(
+              'https://drive.google.com/thumbnail?id=1BA6mllwIf0Krydo9lB-tEv-GfCy_kpUx&sz=w1200',
+              '🎨 Holi celebrations! The most colourful and joyful family photo!'
+            )"
           >
+            <span class="photo-badge">🎨 Happy Holi!</span>
             <img
-              src="https://drive.google.com/uc?id=1BA6mllwIf0Krydo9lB-tEv-GfCy_kpUx&export=view"
-              alt="Memory 3"
+              src="https://drive.google.com/thumbnail?id=1BA6mllwIf0Krydo9lB-tEv-GfCy_kpUx&sz=w1200"
+              alt="Holi celebration family photo"
               loading="lazy"
             />
-            <div class="photo-overlay">
-              <span class="photo-caption">🎂 Birthday Vibes!</span>
+            <div class="photo-label">
+              🌈 Holi vibes with the best family in the world!
             </div>
           </div>
+
         </div>
+        <p class="photo-hint">👆 Tap any photo to see it bigger!</p>
       </section>
 
       <!-- Interactive buttons -->
       <section class="interactive-section reveal">
-        <div class="section-title">🎁 Surprise Messages For Papa! 🎁</div>
+        <div class="section-title">🎁 Special Surprises For Papa! 🎁</div>
         <button
           class="wish-btn"
-          onclick="showPopup('🤗 A Big Hug!','Papa, this is a virtual hug straight from my heart to yours! I wish I could squeeze you right now. You are the best dad in the whole world, and I love you so, so much! 🤗💖')"
+          onclick="showPopup(
+            '🤗 A Big Virtual Hug!',
+            'Papa, this is a virtual hug straight from my heart to yours! Just like that hug at the wedding — but today it comes with extra love, because it\'s YOUR special day. I love you so, so much! 🤗💖'
+          )"
         >
           🤗 Send a Hug
         </button>
         <button
           class="wish-btn"
-          onclick="showPopup('😘 Love & Kisses!','Sending you all the love and kisses on your very special day, Papa! You deserve every bit of happiness that comes your way. Happy Birthday! 😘🎂')"
+          onclick="showPopup(
+            '😘 Love & Kisses!',
+            'Sending you all the love and kisses on your very special day, Papa! You deserve every single bit of happiness that comes your way today and always. Happy Birthday! 😘🎂'
+          )"
         >
           😘 Send a Kiss
         </button>
         <button
           class="wish-btn"
-          onclick="showPopup('🌟 A Birthday Wish!','My wish for you, Papa: May every single day of your life be filled with the same warmth, joy, and love that you have given to all of us. Stay healthy and keep shining! ⭐🎉')"
+          onclick="showPopup(
+            '🌟 My Birthday Wish for You!',
+            'Papa, my wish for you is simple: May every single day of your life be as full of joy and colour as our Holi celebrations, as proud as my graduation day, and as warm as every hug you have ever given me. Stay healthy, stay happy, keep shining! ⭐🎉'
+          )"
         >
           🌟 Make a Wish
         </button>
@@ -957,14 +1043,13 @@
           Made with ❤️ just for you, Papa!
         </p>
         <p>🎂 Wishing you the most wonderful birthday ever! 🎂</p>
-        <div class="footer-emojis">
-          🎈🎉🎊🎁🎂🕯️🌟✨💖
-        </div>
+        <div class="footer-emojis">🎈🎉🎊🎁🎂🕯️🌟✨💖</div>
       </footer>
     </div>
 
+    <!-- ===================== SCRIPTS ===================== -->
     <script>
-      // ===================== CURSOR =====================
+      // ---- CURSOR ----
       const cursor = document.getElementById("cursor");
       let sparkleCounter = 0;
       document.addEventListener("mousemove", (e) => {
@@ -973,29 +1058,30 @@
         sparkleCounter++;
         if (sparkleCounter % 6 === 0) createSparkle(e.clientX, e.clientY);
       });
-
-      const sparkleEmojis = ["✨", "⭐", "💫", "🌟", "❤️", "🎉", "💖", "🎊"];
+      const sparkleEmojis = [
+        "✨", "⭐", "💫", "🌟", "❤️", "🎉", "💖", "🎊",
+      ];
       function createSparkle(x, y) {
         const s = document.createElement("div");
         s.className = "sparkle";
         s.textContent =
           sparkleEmojis[Math.floor(Math.random() * sparkleEmojis.length)];
-        s.style.cssText = `left:${x + (Math.random() - 0.5) * 30}px;top:${
-          y + (Math.random() - 0.5) * 30
-        }px;font-size:${Math.random() * 0.8 + 0.8}rem`;
+        s.style.cssText = `left:${x + (Math.random() - 0.5) * 30}px;
+          top:${y + (Math.random() - 0.5) * 30}px;
+          font-size:${Math.random() * 0.8 + 0.8}rem`;
         document.body.appendChild(s);
         setTimeout(() => s.remove(), 900);
       }
 
-      // ===================== BACKGROUND PARTICLES =====================
+      // ---- BACKGROUND PARTICLES ----
       const bgCanvas = document.getElementById("bg-canvas");
       const bgCtx = bgCanvas.getContext("2d");
+      const fwCanvas = document.getElementById("fireworks-canvas");
+      const fwCtx = fwCanvas.getContext("2d");
       function resizeCanvases() {
         bgCanvas.width = fwCanvas.width = window.innerWidth;
         bgCanvas.height = fwCanvas.height = window.innerHeight;
       }
-      const fwCanvas = document.getElementById("fireworks-canvas");
-      const fwCtx = fwCanvas.getContext("2d");
       resizeCanvases();
       window.addEventListener("resize", resizeCanvases);
 
@@ -1025,14 +1111,8 @@
           bgCtx.fillStyle = color;
           bgCtx.globalAlpha = p.alpha;
           bgCtx.fill();
-          // soft glow
           const g = bgCtx.createRadialGradient(
-            p.x,
-            p.y,
-            0,
-            p.x,
-            p.y,
-            p.r * 4
+            p.x, p.y, 0, p.x, p.y, p.r * 4
           );
           g.addColorStop(0, color);
           g.addColorStop(1, "transparent");
@@ -1047,27 +1127,19 @@
       }
       animateBg();
 
-      // ===================== FIREWORKS =====================
+      // ---- FIREWORKS ----
       let sparks = [];
       function createFirework(x, y) {
         const palette = [
-          "#ff6b6b",
-          "#ffd93d",
-          "#6bcb77",
-          "#4d96ff",
-          "#ff6bdb",
-          "#fff",
-          "#ff9f43",
-          "#a29bfe",
+          "#ff6b6b", "#ffd93d", "#6bcb77", "#4d96ff",
+          "#ff6bdb", "#fff", "#ff9f43", "#a29bfe",
         ];
         const color = palette[Math.floor(Math.random() * palette.length)];
-        const count = 90;
-        for (let i = 0; i < count; i++) {
-          const angle = ((Math.PI * 2) / count) * i;
+        for (let i = 0; i < 90; i++) {
+          const angle = ((Math.PI * 2) / 90) * i;
           const speed = Math.random() * 5.5 + 2;
           sparks.push({
-            x,
-            y,
+            x, y,
             vx: Math.cos(angle) * speed,
             vy: Math.sin(angle) * speed,
             alpha: 1,
@@ -1076,7 +1148,6 @@
           });
         }
       }
-
       function animateFw() {
         fwCtx.clearRect(0, 0, fwCanvas.width, fwCanvas.height);
         sparks = sparks.filter((s) => s.alpha > 0.02);
@@ -1096,15 +1167,12 @@
         requestAnimationFrame(animateFw);
       }
       animateFw();
-
-      // Auto fireworks every 3s
       setInterval(() => {
         createFirework(
           Math.random() * window.innerWidth,
           Math.random() * (window.innerHeight * 0.55)
         );
       }, 3000);
-
       function launchFireworks() {
         for (let i = 0; i < 6; i++) {
           setTimeout(() => {
@@ -1115,8 +1183,6 @@
           }, i * 250);
         }
       }
-
-      // Click anywhere = small firework
       document.addEventListener("click", (e) => {
         if (
           !e.target.closest("button") &&
@@ -1128,30 +1194,17 @@
         }
       });
 
-      // ===================== FALLING EMOJIS =====================
+      // ---- FALLING EMOJIS ----
       const emojiList = [
-        "🎂",
-        "🎉",
-        "🎊",
-        "❤️",
-        "⭐",
-        "🌟",
-        "✨",
-        "🎈",
-        "🎁",
-        "🥰",
-        "💖",
-        "🍰",
-        "🎵",
-        "🌺",
-        "🥂",
-        "🌸",
+        "🎂", "🎉", "🎊", "❤️", "⭐", "🌟", "✨",
+        "🎈", "🎁", "🥰", "💖", "🍰", "🎵", "🌺", "🥂", "🌸",
       ];
       const emojiContainer = document.getElementById("emojiContainer");
       function spawnEmoji() {
         const el = document.createElement("span");
         el.className = "falling-emoji";
-        el.textContent = emojiList[Math.floor(Math.random() * emojiList.length)];
+        el.textContent =
+          emojiList[Math.floor(Math.random() * emojiList.length)];
         el.style.left = Math.random() * 100 + "vw";
         el.style.fontSize = Math.random() * 1.5 + 0.9 + "rem";
         el.style.animationDuration = Math.random() * 6 + 6 + "s";
@@ -1162,16 +1215,10 @@
       setInterval(spawnEmoji, 700);
       for (let i = 0; i < 10; i++) spawnEmoji();
 
-      // ===================== BALLOONS =====================
+      // ---- BALLOONS ----
       const balloonColors = [
-        "#ff6b6b",
-        "#ffd93d",
-        "#6bcb77",
-        "#4d96ff",
-        "#ff6bdb",
-        "#ff9f43",
-        "#a29bfe",
-        "#fdcb6e",
+        "#ff6b6b", "#ffd93d", "#6bcb77", "#4d96ff",
+        "#ff6bdb", "#ff9f43", "#a29bfe", "#fdcb6e",
       ];
       const balloonsContainer = document.getElementById("balloonsContainer");
       function spawnBalloon() {
@@ -1189,15 +1236,10 @@
       setInterval(spawnBalloon, 1800);
       for (let i = 0; i < 7; i++) spawnBalloon();
 
-      // ===================== CONFETTI =====================
+      // ---- CONFETTI ----
       const confColors = [
-        "#ff6b6b",
-        "#ffd93d",
-        "#6bcb77",
-        "#4d96ff",
-        "#ff6bdb",
-        "#ffffff",
-        "#ff9f43",
+        "#ff6b6b", "#ffd93d", "#6bcb77", "#4d96ff",
+        "#ff6bdb", "#ffffff", "#ff9f43",
       ];
       function confettiBurst() {
         for (let i = 0; i < 120; i++) {
@@ -1220,7 +1262,7 @@
         }
       }
 
-      // ===================== CAKE =====================
+      // ---- CAKE ----
       let cakeCooling = false;
       function blowCandles() {
         if (cakeCooling) return;
@@ -1238,14 +1280,14 @@
         }, 2500);
       }
 
-      // ===================== POPUP =====================
+      // ---- POPUP ----
       function showPopup(title, text) {
         const popup = document.getElementById("popup");
         document.getElementById("popup-title").textContent = title;
         document.getElementById("popup-text").textContent = text;
         popup.style.display = "block";
         popup.classList.remove("show");
-        void popup.offsetWidth; // reflow
+        void popup.offsetWidth;
         popup.classList.add("show");
         confettiBurst();
       }
@@ -1255,9 +1297,11 @@
         setTimeout(() => (popup.style.display = "none"), 300);
       }
 
-      // ===================== LIGHTBOX =====================
-      function openLightbox(src) {
+      // ---- LIGHTBOX ----
+      function openLightbox(src, caption) {
         document.getElementById("lightbox-img").src = src;
+        document.getElementById("lightbox-caption").textContent =
+          caption || "";
         document.getElementById("lightbox").classList.add("show");
       }
       function closeLightbox(e) {
@@ -1266,7 +1310,7 @@
         }
       }
 
-      // ===================== MUSIC =====================
+      // ---- MUSIC ----
       let musicOn = false;
       let noteInterval = null;
       function toggleMusic() {
@@ -1291,14 +1335,16 @@
       function spawnNote() {
         const n = document.createElement("div");
         n.className = "music-note";
-        n.textContent = noteChars[Math.floor(Math.random() * noteChars.length)];
-        n.style.left = window.innerWidth - 85 + Math.random() * 30 - 15 + "px";
-        n.style.bottom = 90 + "px";
+        n.textContent =
+          noteChars[Math.floor(Math.random() * noteChars.length)];
+        n.style.left =
+          window.innerWidth - 85 + Math.random() * 30 - 15 + "px";
+        n.style.bottom = "90px";
         document.body.appendChild(n);
         setTimeout(() => n.remove(), 2000);
       }
 
-      // ===================== SCROLL REVEAL =====================
+      // ---- SCROLL REVEAL ----
       const revealEls = document.querySelectorAll(".reveal");
       const msgParas = document.querySelectorAll(".message-text p");
       const io = new IntersectionObserver(
@@ -1319,7 +1365,7 @@
       );
       revealEls.forEach((el) => io.observe(el));
 
-      // ===================== TWINKLING STARS =====================
+      // ---- TWINKLING STARS ----
       for (let i = 0; i < 110; i++) {
         const s = document.createElement("div");
         s.className = "star";
@@ -1334,7 +1380,7 @@
         document.body.appendChild(s);
       }
 
-      // ===================== INITIAL BURST =====================
+      // ---- INITIAL BURST ----
       setTimeout(() => {
         launchFireworks();
         confettiBurst();
